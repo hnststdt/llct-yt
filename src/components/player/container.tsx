@@ -16,6 +16,7 @@ import {
 import { searchById, audioURL } from '@/utils/songs'
 
 import * as api from '@/api'
+import LLCTYoutubeAudio from '@/core/audio_stack/youtube'
 
 interface PlayerRouterState {
   closePlayer?: boolean
@@ -110,6 +111,7 @@ const PlayerContainer = () => {
           alert(
             'youtube에 음원이 없거나 사이트에 링크가 등록되지 않아 재생할 수 없습니다.'
           )
+          ;(playing.instance as LLCTYoutubeAudio).player = null
         } else if (playing.instance.src !== data.metadata?.streaming.youtube) {
           playing.instance.load(data.metadata?.streaming.youtube)
         }
