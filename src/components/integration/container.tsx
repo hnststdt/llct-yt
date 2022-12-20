@@ -70,10 +70,35 @@ const useSpotifyEvents = () => {
   }
 }
 
-const SpotifyIntegrationContainer = () => {
+const useYouTubeEvents = () => {
+  const youtube = useSelector((state: RootState) => state.settings.integrateYoutube)
+  const audioStack = useSelector((state: RootState) => state.settings.audioStack)
+  useSelector((state: RootState) => state.settings.audioStack)
+  const dispatch = useDispatch()
+
+  const handler = () => {
+    requestAnimationFrame(() => {
+      dispatch({
+        type: '@llct/player/setAudioAvailable',
+        data: youtube.value,
+      })
+    })
+    requestAnimationFrame(() => {
+      dispatch({
+        type: '@llct/tab/setTabList',
+        data: youtube.value,
+      })
+    })
+  }
+  handler()
+  // window.addEventListener('toggleYouTube', handler)
+}
+
+const StreamingIntegrationContainer = () => {
   useSpotifyEvents()
+  useYouTubeEvents()
 
   return <></>
 }
 
-export default SpotifyIntegrationContainer
+export default StreamingIntegrationContainer

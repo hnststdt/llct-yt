@@ -33,6 +33,7 @@ const PlayerContainer = () => {
   const playing = useSelector((state: RootState) => state.playing)
   const songs = useSelector((state: RootState) => state.songs.items)
   const spotify = useSelector((state: RootState) => state.spotify.use)
+  const youtube = useSelector((state: RootState) => state.settings.integrateYoutube)
 
   useEffect(() => {
     const data =
@@ -103,6 +104,14 @@ const PlayerContainer = () => {
           )
         } else if (playing.instance.src !== data.metadata?.streaming.spotify) {
           playing.instance.load(data.metadata?.streaming.spotify)
+        }
+      } else if (youtube) {
+        if (!data.metadata?.streaming || !data.metadata?.streaming.youtube) {
+          alert(
+            'youtube에 음원이 없거나 사이트에 링크가 등록되지 않아 재생할 수 없습니다.'
+          )
+        } else if (playing.instance.src !== data.metadata?.streaming.youtube) {
+          playing.instance.load(data.metadata?.streaming.youtube)
         }
       } else if (playing.instance.src !== audioURL(data.id)) {
         playing.instance.load(audioURL(data.id))

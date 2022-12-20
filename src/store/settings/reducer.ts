@@ -44,6 +44,17 @@ const SettingsDefault: Record<
       window.dispatchEvent(new CustomEvent('toggleSpotify'))
     },
   },
+  integrateYoutube: {
+    name: 'YouTube 연동',
+    description: 'YouTube에서 음원을 재생하고 가사를 LLCT에서 표시합니다. 주의! YouTube가 사용 내역을 가져갑니다.',
+    type: 'checkbox',
+    default: false,
+    value: false,
+    onChange: () => {
+      // TODO: Dynamicaly change audio state
+      location.reload() // HACK
+    },
+  },
   usePlayerColorScheme: {
     name: '콜표 색상 사용',
     description:

@@ -7,6 +7,7 @@ import * as player from '@/store/player/actions'
 import { MusicPlayerState, PlayerLoadState } from '@/@types/state'
 import LLCTAdvancedAudio from '@/core/audio_stack/advanced'
 import LLCTSpotifyAudio from '@/core/audio_stack/spotify'
+import LLCTYoutubeAudio from '@/core/audio_stack/youtube'
 
 const PlayerInstanceContainer = () => {
   const dispatch = useDispatch()
@@ -14,6 +15,9 @@ const PlayerInstanceContainer = () => {
   const useSpotify = useSelector((state: RootState) => state.spotify.use)
   const spotifySession = useSelector(
     (state: RootState) => state.spotify.session
+  )
+  const useYoutube = useSelector(
+    (state: RootState) => state.settings.integrateYoutube.value as boolean
   )
   const audioAvailable = useSelector(
     (state: RootState) => state.playing.audioAvailable
@@ -60,6 +64,8 @@ const PlayerInstanceContainer = () => {
 
     const localInstance = useSpotify
       ? new LLCTSpotifyAudio(spotifySession)
+      : useYoutube
+      ? new LLCTYoutubeAudio()
       : audioStack === 'native'
       ? new LLCTNativeAudio()
       : new LLCTAdvancedAudio()
@@ -113,6 +119,8 @@ const PlayerInstanceContainer = () => {
     }
   }, [instance, playing])
 
+  // HACK
+  /*
   useEffect(() => {
     if (instance && instance.type !== audioStack) {
       instance.stop()
@@ -121,6 +129,8 @@ const PlayerInstanceContainer = () => {
 
       if (useSpotify) {
         inst = new LLCTSpotifyAudio(spotifySession)
+      } else if (useYoutube) {
+        inst = new LLCTYoutubeAudio()
       } else if (audioStack === 'native') {
         inst = new LLCTNativeAudio()
       } else if (audioStack === 'advanced') {
@@ -131,7 +141,8 @@ const PlayerInstanceContainer = () => {
 
       dispatch(player.setInstance(inst))
     }
-  }, [audioStack, audioAvailable, useSpotify])
+  }, [audioStack, audioAvailable, useSpotify, useYoutube])
+  */
 
   useEffect(() => {
     if (!instance || !instance.updateMetadata) {

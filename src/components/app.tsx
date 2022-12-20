@@ -16,7 +16,7 @@ import {
   useDarkMode,
   onModeUpdate,
 } from '@/utils/darkmode'
-import SpotifyIntegrationContainer from './integration/container'
+import StreamingIntegrationContainer from './integration/container'
 
 const useColorScheme = () => {
   const [, refresh] = useState<number>(0)
@@ -116,7 +116,7 @@ const App = () => {
       <PageWaves></PageWaves>
       <PlayerButton></PlayerButton>
       <DataLoderContainer></DataLoderContainer>
-      <SpotifyIntegrationContainer></SpotifyIntegrationContainer>
+      <StreamingIntegrationContainer></StreamingIntegrationContainer>
       <HomeContainer></HomeContainer>
       <PlayerContainer></PlayerContainer>
       <PlayerInstanceContainer></PlayerInstanceContainer>

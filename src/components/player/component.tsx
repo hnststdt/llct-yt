@@ -43,6 +43,8 @@ import {
   useDarkMode as checkUseDarkMode,
   updateMetaTheme,
 } from '@/utils/darkmode'
+import YouTube from 'react-youtube'
+import LLCTYoutubeAudio from '@/core/audio_stack/youtube'
 
 interface PlayerComponentProps {
   showEQ: boolean
@@ -254,6 +256,9 @@ const PlayerComponent = ({
   const audioAvailable = useSelector(
     (state: RootState) => state.playing.audioAvailable
   )
+  const integrateYoutube = useSelector(
+    (state: RootState) => state.settings.integrateYoutube
+  ).value
 
   const darkMode = useDarkMode || (autoTheme && checkUseDarkMode())
 
@@ -572,18 +577,33 @@ const PlayerComponent = ({
               {titleInfo}
               {audioAvailable && Controls}
               <div className='image'>
-                <img
-                  alt={`${music.title} 앨범 커버`}
-                  src={
-                    !siteSong && siteMetadata
-                      ? siteMetadata.image || emptyCover
-                      : useAlbumCover
-                      ? typeof music !== 'undefined'
-                        ? music.image
-                        : ''
-                      : emptyCover
-                  }
-                ></img>
+                {integrateYoutube && music.metadata?.streaming?.youtube ? (
+                  <YouTube
+                    className="youtubeContainer"
+                    opts={{
+                      height: 200,
+                      width: 200,
+                      playerVars: {controls: 0},
+                      host: "https://www.youtube-nocookie.com"
+                    }}
+                    onReady={(event) => (instance as LLCTYoutubeAudio).setPlayer(event.target)}
+                    onStateChange={(event) => (instance as LLCTYoutubeAudio).updateState(event)}
+                    onEnd={(event) => event.target.stopVideo()}
+                  />
+                ) : (
+                  <img
+                    alt={`${music.title} 앨범 커버`}
+                    src={
+                      !siteSong && siteMetadata
+                        ? siteMetadata.image || emptyCover
+                        : useAlbumCover
+                        ? typeof music !== 'undefined'
+                          ? music.image
+                          : ''
+                        : emptyCover
+                    }
+                  ></img>
+                )}
               </div>
             </div>
             <div className='dashboard-column progress-zone'>

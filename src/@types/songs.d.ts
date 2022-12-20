@@ -16,6 +16,7 @@ interface LLCTSongDataV2 {
 
 interface SongStreamingProvider {
   spotify?: string
+  youtube?: string
 }
 interface MusicExtraMetadata {
   released?: number

@@ -9,6 +9,7 @@ interface Settings {
   usePlayerColorScheme: boolean
   matchSystemAppearance: boolean
   integrateSpotify: void
+  integrateYoutube: boolean
   useAutoScroll: boolean
   useLyrics: boolean
   useAlbumCover: boolean
