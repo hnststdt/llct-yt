@@ -45,8 +45,8 @@ const Tabs: LLCTTab[] = [
  * @param str 탭 ID
  */
 export const findTabById = (str: string): number | null => {
-  for (let i = 0; i < Tabs.length; i++) {
-    if (Tabs[i].page === str) {
+  for (let i = 0; i < UIDefault.tabs.length; i++) {
+    if (UIDefault.tabs[i].page === str) {
       return i
     }
   }
