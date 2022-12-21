@@ -35,6 +35,9 @@ const PlayerContainer = () => {
   const songs = useSelector((state: RootState) => state.songs.items)
   const spotify = useSelector((state: RootState) => state.spotify.use)
   const youtube = useSelector((state: RootState) => state.settings.integrateYoutube)
+  const usePlayerColorScheme = useSelector(
+    (state: RootState) => state.settings.usePlayerColorScheme.value
+  )
 
   useEffect(() => {
     const data =
@@ -47,9 +50,11 @@ const PlayerContainer = () => {
       return
     }
 
-    api.fetchColorData(data.id).then(v => {
-      dispatch(setAlbumColor(v))
-    })
+    if (usePlayerColorScheme) {
+      api.fetchColorData(data.id).then(v => {
+        dispatch(setAlbumColor(v))
+      })
+    }
 
     document.title = `${data.title} - ${data.artist}`
 
