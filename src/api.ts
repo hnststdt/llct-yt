@@ -1,8 +1,16 @@
 const makeItJSON = (result: Response) => result.json()
+const makeItJSONResult = (result: Response) => ({
+  result: 'success', data: result.json()
+})
+// HACK: hardcoded group name
+const groups = ["muse", "aqours", "nijigasaki", "liella"]
 
 export const fetchAPI = async () => {
-  return fetch(`${process.env.API_SERVER}/lists`)
-    .then(v => {
+  return fetch(
+    process.env.STATIC_MODE === 'true'
+      ? 'calls/lists.json'
+      : `${process.env.API_SERVER}/lists`
+    ).then(v => {
       if (v.status === 404) {
         throw new Error('노래 목록이 없어요.')
       }
@@ -17,7 +25,7 @@ export const fetchAPI = async () => {
 
       return v
     })
-    .then(makeItJSON)
+    .then(process.env.STATIC_MODE === 'true' ? makeItJSONResult : makeItJSON)
     .then(p => {
       if (!p.result || p.result === 'error') {
         throw new Error(p.data || '연결 도중에 오류를 반환하였습니다.')
@@ -35,8 +43,11 @@ export const fetchAPI = async () => {
 }
 
 export const fetchCallData = async (id: string): Promise<LLCTCall> => {
-  return fetch(`${process.env.API_SERVER}/call/${id}`)
-    .then(v => {
+  return fetch(
+      process.env.STATIC_MODE === 'true'
+      ? `calls/${groups[Number(id.substring(0, 1))]}/${id.substring(1)}/call.json`
+      : `{process.env.API_SERVER}/call/${id}`
+    ).then(v => {
       if (v.status === 404) {
         throw new Error('콜표가 없어요.')
       }
@@ -62,6 +73,12 @@ export const fetchCallData = async (id: string): Promise<LLCTCall> => {
 }
 
 export const fetchServerPlaylist = async (): Promise<LLCTPlaylistDataV1> => {
+  if (process.env.STATIC_MODE) {
+    return new Promise((resolve, reject) => {
+      resolve({ 'playlists': [] } as LLCTPlaylistDataV1)
+    })
+  }
+
   return fetch(`${process.env.API_SERVER}/playlists`)
     .then(v => {
       if (v.status === 404) {
@@ -96,6 +113,12 @@ export const fetchServerPlaylist = async (): Promise<LLCTPlaylistDataV1> => {
 
 
 export const fetchUpdates = async (): Promise<LLCTUpdate> => {
+  if (process.env.STATIC_MODE) {
+    return new Promise((resolve, reject) => {
+      resolve({ 'updates': 0, 'dashboards': [], 'notices': [] } as LLCTUpdate)
+    })
+  }
+
   return fetch(`${process.env.API_SERVER}/updates`)
     .then(v => {
       if (v.status === 404) {
@@ -117,7 +140,7 @@ export const fetchUpdates = async (): Promise<LLCTUpdate> => {
       if (!v.result || v.result === 'error') {
         throw new Error(v.data || '서버에서 오류를 반환하였습니다.')
       }
-      
+
       return v.data
     })
     .catch(e => {

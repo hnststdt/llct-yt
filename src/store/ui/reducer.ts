@@ -69,7 +69,9 @@ const UIReducer = (
   switch (action.type) {
     case '@llct/tab/setTabList':
       return Object.assign(state, {
-        tabs: action.data ? AudioAvailableTabs : Tabs,
+        tabs: (action.data ? AudioAvailableTabs : Tabs).slice(
+          process.env.STATIC_MODE === 'true' ? 1 : 0
+        ),
       })
     case '@llct/tab/update':
       return Object.assign(state, {

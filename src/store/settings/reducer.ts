@@ -43,6 +43,7 @@ const SettingsDefault: Record<
     onChange: () => {
       window.dispatchEvent(new CustomEvent('toggleSpotify'))
     },
+    hidden: process.env.STATIC_MODE === 'true'
   },
   integrateYoutube: {
     name: 'YouTube 연동',
@@ -60,8 +61,9 @@ const SettingsDefault: Record<
     description:
       '콜표의 배경 색상을 앨범 이미지의 색상에 맞춰 바꿀지를 결정해요.',
     type: 'checkbox',
-    default: true,
-    value: true,
+    default: process.env.STATIC_MODE !== 'true',
+    value: process.env.STATIC_MODE !== 'true',
+    hidden: process.env.STATIC_MODE === 'true'
   },
   useAutoScroll: {
     name: '자동 스크롤 사용',
@@ -89,8 +91,9 @@ const SettingsDefault: Record<
     description:
       '노래 카드와 플레이어에서 앨범 커버를 사용해요. 이 옵션이 꺼져 있으면 데이터가 절약돼요.',
     type: 'checkbox',
-    default: true,
-    value: true,
+    default: process.env.STATIC_MODE !== 'true',
+    value: process.env.STATIC_MODE !== 'true',
+    hidden: process.env.STATIC_MODE === 'true'
   },
   audioStack: {
     name: '오디오 스택',
