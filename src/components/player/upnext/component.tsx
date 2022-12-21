@@ -9,6 +9,7 @@ interface UpNextComponentProps {
 import { RootState } from '@/store'
 import '@/styles/components/player/upnext.scss'
 import { useSelector } from 'react-redux'
+import { emptyCover } from '@/utils/cover'
 
 const UpNextComponent = ({
   playlist,
@@ -19,6 +20,9 @@ const UpNextComponent = ({
 }: UpNextComponentProps) => {
   const useTranslatedTitle = useSelector(
     (state: RootState) => state.settings.useTranslatedTitle.value
+  )
+  const useAlbumCover = useSelector(
+    (state: RootState) => state.settings.useAlbumCover.value
   )
 
   const availableTitleText =
@@ -31,7 +35,7 @@ const UpNextComponent = ({
       onClick={() => click(current, index, playlist)}
       data-current={current}
     >
-      <img className='cover' src={music.image + '?s=75'}></img>
+      <img className='cover' src={useAlbumCover ? music.image + '?s=75' : emptyCover}></img>
       <div className='info'>
         <p className='music-title' title={availableTitleText}>
           {index + 1}. {availableTitleText}
