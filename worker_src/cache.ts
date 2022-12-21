@@ -57,7 +57,7 @@ const cachingExtensionsPath: [RegExp, LLCTCacheOption][] = [
 const cachingAPIPath: [RegExp, LLCTCacheOption][] = [
   [/\/cover\/[0-9]+(\?s=[0-9]+)?/g, {}],
   [
-    /\/call\/[0-9]+/g,
+    /\/call\/[0-9]+|call\.json/g,
     {
       revalidate: true
     }

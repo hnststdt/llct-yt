@@ -47,7 +47,8 @@ module.exports = (_, argv) => {
     },
     plugins: [
       new DefinePlugin({
-        'process.env.API_SERVER': JSON.stringify(process.env.API_SERVER)
+        'process.env.API_SERVER': JSON.stringify(process.env.API_SERVER),
+        'process.env.STATIC_MODE': JSON.stringify(process.env.STATIC_MODE)
       })
     ],
     optimization: {
