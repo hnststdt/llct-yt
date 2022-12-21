@@ -7,6 +7,9 @@ import { songsDuration } from '@/utils/songs'
 import { ReactNode } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/store'
+import { emptyCover } from '@/utils/cover'
 
 import {
   SortableContainer,
@@ -39,10 +42,13 @@ interface PlaylistCardImageGroupProps {
 const MAX_IMAGE_DISPLAY = 3
 
 const PlaylistCardImageGroup = ({ items }: PlaylistCardImageGroupProps) => {
+  const useAlbumCover = useSelector(
+    (state: RootState) => state.settings.useAlbumCover.value
+  )
   return (
     <div className='llct-playlist-image-group'>
       {items.slice(0, MAX_IMAGE_DISPLAY).map((v, i) => (
-        <img key={v.id + i} src={v.image} style={{ zIndex: 1000 - i }}></img>
+        <img key={v.id + i} src={useAlbumCover ? v.image : emptyCover} style={{ zIndex: 1000 - i }}></img>
       ))}
       <span className='text'>
         {items.length > MAX_IMAGE_DISPLAY &&
