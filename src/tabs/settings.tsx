@@ -52,6 +52,17 @@ const SettingsTab = ({ show }: LLCTTabProps) => {
               by LLCT Contributors. The copyright of each work belongs to
               it&apos;s creator.
             </p>
+            <p>
+              <span
+                className='link'
+                role='button'
+                aria-label={'포크된 Github 프로젝트 링크'}
+                onClick={() => openPage('https://github.com/hnststdt/llct-yt')}
+              >
+                Forked
+              </span>{' '}
+              for YouTube and static web hosting support.
+            </p>
           </div>
         </div>
         {Object.keys(settings).map((id, i) => {
