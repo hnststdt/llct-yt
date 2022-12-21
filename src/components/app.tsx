@@ -74,9 +74,9 @@ const useServiceWorker = () => {
       if (!registration && useServiceWorker) {
         const register = async () => {
           const registration = await navigator.serviceWorker.register(
-            '/service-worker.js',
+            'service-worker.js',
             {
-              scope: '/',
+              scope: './',
             }
           )
 

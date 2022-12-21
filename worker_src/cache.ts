@@ -6,38 +6,38 @@ export const DYNAMIC_CACHE = '@llct/cache/dynamic/v2'
 type CacheStorageKey = typeof STATIC_CACHE | typeof DYNAMIC_CACHE
 
 export const STATIC_CACHE_URL = [
-  '/',
-  '/manifest.json',
-  '/sounds/tick.mp3',
-  '/images/aqours.png',
-  '/images/niji.png',
-  '/images/us.png',
-  '/images/logo/android-icon-36x36.png',
-  '/images/logo/android-icon-48x48.png',
-  '/images/logo/android-icon-72x72.png',
-  '/images/logo/android-icon-96x96.png',
-  '/images/logo/android-icon-144x144.png',
-  '/images/logo/android-icon-192x192.png',
-  '/images/logo/apple-icon-57x57.png',
-  '/images/logo/apple-icon-60x60.png',
-  '/images/logo/apple-icon-72x72.png',
-  '/images/logo/apple-icon-76x76.png',
-  '/images/logo/apple-icon-114x114.png',
-  '/images/logo/apple-icon-120x120.png',
-  '/images/logo/apple-icon-144x144.png',
-  '/images/logo/apple-icon-152x152.png',
-  '/images/logo/apple-icon-180x180.png',
-  '/images/logo/apple-icon-precomposed.png',
-  '/images/logo/apple-icon.png',
-  '/images/logo/favicon-16x16.png',
-  '/images/logo/favicon-32x32.png',
-  '/images/logo/favicon-96x96.png',
-  '/images/logo/favicon.ico',
-  '/images/logo/Icon.svg',
-  '/images/logo/ms-icon-70x70.png',
-  '/images/logo/ms-icon-144x144.png',
-  '/images/logo/ms-icon-150x150.png',
-  '/images/logo/ms-icon-310x310.png'
+  './',
+  'manifest.json',
+  'sounds/tick.mp3',
+  'images/aqours.png',
+  'images/niji.png',
+  'images/us.png',
+  'images/logo/android-icon-36x36.png',
+  'images/logo/android-icon-48x48.png',
+  'images/logo/android-icon-72x72.png',
+  'images/logo/android-icon-96x96.png',
+  'images/logo/android-icon-144x144.png',
+  'images/logo/android-icon-192x192.png',
+  'images/logo/apple-icon-57x57.png',
+  'images/logo/apple-icon-60x60.png',
+  'images/logo/apple-icon-72x72.png',
+  'images/logo/apple-icon-76x76.png',
+  'images/logo/apple-icon-114x114.png',
+  'images/logo/apple-icon-120x120.png',
+  'images/logo/apple-icon-144x144.png',
+  'images/logo/apple-icon-152x152.png',
+  'images/logo/apple-icon-180x180.png',
+  'images/logo/apple-icon-precomposed.png',
+  'images/logo/apple-icon.png',
+  'images/logo/favicon-16x16.png',
+  'images/logo/favicon-32x32.png',
+  'images/logo/favicon-96x96.png',
+  'images/logo/favicon.ico',
+  'images/logo/Icon.svg',
+  'images/logo/ms-icon-70x70.png',
+  'images/logo/ms-icon-144x144.png',
+  'images/logo/ms-icon-150x150.png',
+  'images/logo/ms-icon-310x310.png'
 ]
 
 export const DO_NOT_CACHE_URL = []
@@ -120,9 +120,9 @@ export const cacheHandler = async (
 
     if (
       sw.registration.scope.indexOf(new URL(req.url).origin) === 0 &&
-      req.url.indexOf('/?id=') > -1
+      req.url.indexOf('?id=') > -1
     ) {
-      localReq = new Request('/')
+      localReq = new Request('./')
     }
 
     const exists = await storage.match(localReq)

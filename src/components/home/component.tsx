@@ -106,7 +106,7 @@ const HomeComponent = ({ tabs, currentTab }: TabListProps) => {
       <img
         aria-label={'LLCT 로고'}
         className='llct-icon'
-        src='/images/logo/Icon.svg'
+        src='images/logo/Icon.svg'
       ></img>
       {tabs.map((tab, idx) => {
         return (

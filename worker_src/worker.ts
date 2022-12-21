@@ -28,7 +28,7 @@ sw.addEventListener('fetch', ev => {
 
   if (
       process.env.STATIC_MODE === 'true'
-      ? (url.pathname.startsWith("/calls"))
+      ? (url.pathname.endsWith("call.json") || url.pathname.endsWith("lists.json"))
       : (url.origin === process.env.API_SERVER)
     ) {
     const matches = llctCache.apiPathMatch(ev.request.url)

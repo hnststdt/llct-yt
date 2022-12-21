@@ -28,7 +28,7 @@ module.exports = (_, argv) => {
       filename: '[name].js',
       chunkFilename: '[name]-chunk.js',
       path: path.resolve(__dirname, 'public'),
-      publicPath: '/'
+      publicPath: './'
     },
     module: {
       rules: [
