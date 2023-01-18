@@ -34,7 +34,7 @@ jobs:
           API_SERVER: https://hnststdt.github.io/llct-calldata
           NO_AUDIO_MODE: "true"
           STATIC_MODE: "true"
-          USE_STATIC_ASSET: "true"
+          USE_STATIC_ASSET: "false"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
