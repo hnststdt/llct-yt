@@ -6,7 +6,7 @@ interface CallEditorComponentProps {
 
 export const CallEditorComponent = ({ id }: CallEditorComponentProps) => {
   const openButton = () => {
-    window.open(`https://editor.lovelivec.kr/?id=${id}`, 'about:blank')
+    window.open(`https://hnststdt.github.io/llct-editor/?id=${id}`, 'about:blank')
   }
 
   return (

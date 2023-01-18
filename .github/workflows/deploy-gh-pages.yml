@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ "static" ]
+    branches: [ "deploy" ]
   workflow_dispatch:
 
 concurrency:
@@ -15,8 +15,6 @@ jobs:
     steps:
       - name: Checkout branch
         uses: actions/checkout@v3
-        with:
-          submodules: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -33,9 +31,10 @@ jobs:
       - name: Build webpack
         run: yarn build
         env:
-          API_SERVER: api
+          API_SERVER: https://hnststdt.github.io/llct-calldata
           NO_AUDIO_MODE: "true"
           STATIC_MODE: "true"
+          USE_STATIC_ASSET: "true"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1

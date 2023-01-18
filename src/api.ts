@@ -7,7 +7,7 @@ const groups = ["muse", "aqours", "nijigasaki", "liella"]
 
 export const fetchAPI = async () => {
   return fetch(
-    process.env.STATIC_MODE === 'true'
+    process.env.USE_STATIC_ASSET === 'true'
       ? 'calls/lists.json'
       : `${process.env.API_SERVER}/lists`
     ).then(v => {
@@ -25,7 +25,7 @@ export const fetchAPI = async () => {
 
       return v
     })
-    .then(process.env.STATIC_MODE === 'true' ? makeItJSONResult : makeItJSON)
+    .then(process.env.USE_STATIC_ASSET === 'true' ? makeItJSONResult : makeItJSON)
     .then(p => {
       if (!p.result || p.result === 'error') {
         throw new Error(p.data || '연결 도중에 오류를 반환하였습니다.')
@@ -44,9 +44,9 @@ export const fetchAPI = async () => {
 
 export const fetchCallData = async (id: string): Promise<LLCTCall> => {
   return fetch(
-      process.env.STATIC_MODE === 'true'
+      process.env.USE_STATIC_ASSET === 'true'
       ? `calls/${groups[Number(id.substring(0, 1))]}/${id.substring(1)}/call.json`
-      : `{process.env.API_SERVER}/call/${id}`
+      : `${process.env.API_SERVER}/call/${id}`
     ).then(v => {
       if (v.status === 404) {
         throw new Error('콜표가 없어요.')
